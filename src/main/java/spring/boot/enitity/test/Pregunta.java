@@ -1,15 +1,11 @@
 package spring.boot.enitity.test;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.OneToMany;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
+import spring.boot.enitity.catalogos.Categoria;
+import spring.boot.enitity.generic.Archivo;
 
+import javax.persistence.*;
+
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,12 +20,28 @@ public class Pregunta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPregunta;
 
-    @OneToMany
-    @JoinTable(
-            name="PREGUNTA_RESPUESTA",
+    @Column(name = "PREGUNTA")
+    private String pregunta;
+
+    @Column(name = "DIFICULTAD")
+    private Character dificultad;
+
+    @Column(name = "ACTIVA")
+    private Boolean activa;
+
+    @OneToOne
+    @Column(name = "ID_CATEGORIA")
+    private Categoria categoria;
+
+    @OneToOne
+    @Column(name = "ID_ARCHIVO")
+    private Archivo archivo;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+    @JoinTable(name="PREGUNTA_RESPUESTA",
             joinColumns={ @JoinColumn(name="ID_PREGUNTA", referencedColumnName="ID_PREGUNTA") },
             inverseJoinColumns={ @JoinColumn(name="ID_RESPUESTA", referencedColumnName="ID_RESPUESTA")})
-    private Set<Respuesta> respuestas;
+    private List<Respuesta> respuestas;
 
     public Long getIdPregunta() {
         return idPregunta;
@@ -39,11 +51,51 @@ public class Pregunta {
         this.idPregunta = idPregunta;
     }
 
-    public Set<Respuesta> getRespuestas() {
+    public String getPregunta() {
+        return pregunta;
+    }
+
+    public void setPregunta(String pregunta) {
+        this.pregunta = pregunta;
+    }
+
+    public Character getDificultad() {
+        return dificultad;
+    }
+
+    public void setDificultad(Character dificultad) {
+        this.dificultad = dificultad;
+    }
+
+    public Boolean getActiva() {
+        return activa;
+    }
+
+    public void setActiva(Boolean activa) {
+        this.activa = activa;
+    }
+
+    public List<Respuesta> getRespuestas() {
         return respuestas;
     }
 
-    public void setRespuestas(Set<Respuesta> respuestas) {
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public Archivo getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(Archivo archivo) {
+        this.archivo = archivo;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setRespuestas(List<Respuesta> respuestas) {
         this.respuestas = respuestas;
     }
 }
