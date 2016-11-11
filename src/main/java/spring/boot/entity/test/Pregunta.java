@@ -39,6 +39,12 @@ public class Pregunta {
             CascadeType.REFRESH, CascadeType.REMOVE}, mappedBy = "pregunta")
     private Set<Respuesta> respuestas;
 
+    @ManyToOne
+    @JoinTable(name="ENCUESTA_PREGUNTA",
+            joinColumns =  @JoinColumn(name = "ID_PREGUNTA", referencedColumnName = "ID_PREGUNTA"),
+            inverseJoinColumns = @JoinColumn(name = "ID_ENCUESTA", referencedColumnName = "ID_ENCUESTA"))
+    private Encuesta encuesta;
+
     public Long getIdPregunta() {
         return idPregunta;
     }
