@@ -1,4 +1,4 @@
-package spring.boot.enitity.generic;
+package spring.boot.entity.generic;
 
 import javax.persistence.*;
 

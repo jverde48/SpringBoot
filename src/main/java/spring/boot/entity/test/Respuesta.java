@@ -1,6 +1,6 @@
-package spring.boot.enitity.test;
+package spring.boot.entity.test;
 
-import spring.boot.enitity.generic.Archivo;
+import spring.boot.entity.generic.Archivo;
 
 import javax.persistence.*;
 
@@ -20,8 +20,14 @@ public class Respuesta {
     private Boolean isCorrecta;
 
     @OneToOne
-    @Column(name = "ID_ARCHIVO")
+    @JoinColumn(name="ID_ARCHIVO", nullable = true)
     private Archivo archivo;
+
+    @ManyToOne
+    @JoinTable(name="PREGUNTA_RESPUESTA",
+            joinColumns =  @JoinColumn(name = "ID_RESPUESTA", referencedColumnName = "ID_RESPUESTA"),
+            inverseJoinColumns = @JoinColumn(name = "ID_PREGUNTA", referencedColumnName = "ID_PREGUNTA"))
+    private Pregunta pregunta;
 
     public Long getIdRespuesta() {
         return idRespuesta;

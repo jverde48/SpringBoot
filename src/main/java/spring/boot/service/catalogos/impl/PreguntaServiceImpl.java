@@ -3,7 +3,7 @@ package spring.boot.service.catalogos.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import spring.boot.enitity.test.Pregunta;
+import spring.boot.entity.test.Pregunta;
 import spring.boot.repository.test.PreguntaRepository;
 import spring.boot.service.PreguntaService;
 

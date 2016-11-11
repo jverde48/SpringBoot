@@ -1,4 +1,4 @@
-package spring.boot.enitity.catalogos;
+package spring.boot.entity.catalogos;
 
 import javax.persistence.*;
 

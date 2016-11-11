@@ -1,11 +1,9 @@
-package spring.boot.enitity.test;
+package spring.boot.entity.test;
 
-import spring.boot.enitity.catalogos.Categoria;
-import spring.boot.enitity.generic.Archivo;
+import spring.boot.entity.catalogos.Categoria;
+import spring.boot.entity.generic.Archivo;
 
 import javax.persistence.*;
-
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -30,18 +28,16 @@ public class Pregunta {
     private Boolean activa;
 
     @OneToOne
-    @Column(name = "ID_CATEGORIA")
+    @JoinColumn(name="ID_CATEGORIA", nullable = false)
     private Categoria categoria;
 
     @OneToOne
-    @Column(name = "ID_ARCHIVO")
+    @JoinColumn(name="ID_ARCHIVO", nullable = true)
     private Archivo archivo;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
-    @JoinTable(name="PREGUNTA_RESPUESTA",
-            joinColumns={ @JoinColumn(name="ID_PREGUNTA", referencedColumnName="ID_PREGUNTA") },
-            inverseJoinColumns={ @JoinColumn(name="ID_RESPUESTA", referencedColumnName="ID_RESPUESTA")})
-    private List<Respuesta> respuestas;
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,
+            CascadeType.REFRESH, CascadeType.REMOVE}, mappedBy = "pregunta")
+    private Set<Respuesta> respuestas;
 
     public Long getIdPregunta() {
         return idPregunta;
@@ -75,7 +71,7 @@ public class Pregunta {
         this.activa = activa;
     }
 
-    public List<Respuesta> getRespuestas() {
+    public Set<Respuesta> getRespuestas() {
         return respuestas;
     }
 
@@ -95,7 +91,7 @@ public class Pregunta {
         this.categoria = categoria;
     }
 
-    public void setRespuestas(List<Respuesta> respuestas) {
+    public void setRespuestas(Set<Respuesta> respuestas) {
         this.respuestas = respuestas;
     }
 }

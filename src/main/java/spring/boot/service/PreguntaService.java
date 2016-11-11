@@ -1,6 +1,6 @@
 package spring.boot.service;
 
-import spring.boot.enitity.test.Pregunta;
+import spring.boot.entity.test.Pregunta;
 
 /**
  * Created by Green4 on 04/11/2016.
